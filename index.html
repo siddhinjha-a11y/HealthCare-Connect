@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthCare Connect - Your Personal Health Companion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #0284c7;
+            --primary-dark: #0d47a1;
+            --primary-light: #4fc3f7;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-dark: #0f172a;
+            --text-light: #475569;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--bg-white);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.75rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(2, 132, 199, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-color);
+            padding: 0.75rem 1.75rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #0167ab 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid transparent;
+            cursor: pointer;
+        }
+
+        .service-card:nth-child(1) { border-top-color: #0284c7; }
+        .service-card:nth-child(2) { border-top-color: #10b981; }
+        .service-card:nth-child(3) { border-top-color: #f59e0b; }
+        .service-card:nth-child(4) { border-top-color: #ef4444; }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary-color);
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-btn {
+            color: var(--text-light);
+            float: right;
+            font-size: 1.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: var(--danger);
+        }
+
+        .modal h2 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-input, .form-select, .form-checkbox {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-checkbox {
+            width: auto;
+            cursor: pointer;
+        }
+
+        .checkbox-label {
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        /* Result Styles */
+        .result-box {
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+        }
+
+        .result-success {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            color: var(--text-dark);
+        }
+
+        .result-warning {
+            background-color: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--warning);
+            color: var(--text-dark);
+        }
+
+        .result-danger {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            color: var(--text-dark);
+        }
+
+        .result-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-description {
+            line-height: 1.8;
+            color: var(--text-light);
+        }
+
+        .result-action {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Benefits Section */
+        .benefits {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 4rem 2rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .benefit-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-box h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .benefit-box p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: white;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(2, 132, 199, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(2, 132, 199, 0.15);
+        }
+
+        .price-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .price-amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .price-features {
+            list-style: none;
+            text-align: left;
+            margin: 2rem 0;
+            color: var(--text-light);
+        }
+
+        .price-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .price-features li:before {
+            content: "✓ ";
+            color: var(--success);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+        }
+
+        .cta h2 {
+            color: white;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin: 1.5rem 0 2rem;
+            opacity: 0.95;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--primary-light);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-card, .benefit-box, .pricing-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="navbar">
+            <div class="logo">🏥 HealthCare Connect</div>
+            <ul class="nav-links">
+                <li><a onclick="scrollToSection('services')">Services</a></li>
+                <li><a onclick="scrollToSection('benefits')">Benefits</a></li>
+                <li><a onclick="scrollToSection('pricing')">Pricing</a></li>
+                <li><button class="btn-primary" onclick="downloadApp()">Download App</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Your Health, Your Way, Anytime</h1>
+            <p class="hero-subtitle">AI-powered health guidance, instant doctor consultations, and medicine delivery at your fingertips</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="openSymptomChecker()" style="padding: 1rem 2rem; font-size: 1rem;">Try AI Symptom Checker</button>
+                <button class="btn-secondary" onclick="downloadApp()" style="padding: 1rem 2rem; font-size: 1rem;">Download App</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <h2>What We Offer</h2>
+        <p class="section-subtitle">Complete healthcare solutions in one app. All your medical needs, one place.</p>
+        
+        <div class="services-grid">
+            <div class="service-card" onclick="openSymptomChecker()">
+                <div class="service-icon">🤖</div>
+                <h3>AI Symptom Checker</h3>
+                <p>Describe your symptoms and get instant analysis. Find out if you need a doctor or can treat at home. Fast, accurate, 24/7.</p>
+            </div>
+            <div class="service-card" onclick="openDoctorConsultation()">
+                <div class="service-icon">👨‍⚕️</div>
+                <h3>Doctor Consultations</h3>
+                <p>Video or chat with licensed doctors in 5 minutes. Get e-prescriptions instantly. ₹300-500 per visit. Affordable healthcare.</p>
+            </div>
+            <div class="service-card" onclick="openMedicineOrder()">
+                <div class="service-icon">💊</div>
+                <h3>Medicine Delivery</h3>
+                <p>Order prescription medicines through our app. Home delivery in 10-15 minutes. Compare prices, save money, verify authenticity.</p>
+            </div>
+            <div class="service-card" onclick="openHospitalFinder()">
+                <div class="service-icon">🏥</div>
+                <h3>Hospital Finder</h3>
+                <p>Find best hospitals nearby by specialty. Check doctor availability, bed status, and insurance. Book appointments instantly.</p>
+            </div>
+            <div class="service-card" onclick="openAmbulance()">
+                <div class="service-icon">🚑</div>
+                <h3>Ambulance Near Me</h3>
+                <p>Emergency ambulance at your location within minutes. 24/7 available. GPS tracked. Professional medical staff on board.</p>
+            </div>
+            <div class="service-card" onclick="openMedicineLibrary()">
+                <div class="service-icon">💊</div>
+                <h3>Medicine Library</h3>
+                <p>Describe your symptoms, get instant medicine recommendations. Browse all medicines available worldwide with dosage, side effects & usage guides.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Medicine Library Modal -->
+    <div id="medicineLibraryModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeMedicineLibrary()">&times;</span>
+            <h2>💊 Medicine Library & Recommendations</h2>
+            <p style="color: var(--text-light); margin-bottom: 1.5rem;">Search for medicines or describe your symptoms to get recommendations.</p>
+            
+            <div class="form-group">
+                <label class="form-label">🔍 Search Medicine or Symptom</label>
+                <input type="text" class="form-input" id="medicine-search" placeholder="e.g., Fever, Cough, Aspirin, Paracetamol...">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Or Select Your Symptoms</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="med-lib-fever" class="form-checkbox" value="fever">
+                        <label for="med-lib-fever" class="checkbox-label">🌡️ Fever</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="med-lib-cough" class="form-checkbox" value="cough">
+                        <label for="med-lib-cough" class="checkbox-label">😷 Cough</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="med-lib-headache" class="form-checkbox" value="headache">
+                        <label for="med-lib-headache" class="checkbox-label">🤕 Headache</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="med-lib-body-pain" class="form-checkbox" value="body pain">
+                        <label for="med-lib-body-pain" class="checkbox-label">💪 Body Pain</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="med-lib-throat" class="form-checkbox" value="sore throat">
+                        <label for="med-lib-throat" class="checkbox-label">🫁 Sore Throat</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="med-lib-nausea" class="form-checkbox" value="nausea">
+                        <label for="med-lib-nausea" class="checkbox-label">🤢 Nausea</label>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-primary" onclick="searchMedicines()" style="width: 100%; padding: 0.75rem; margin-bottom: 1rem;">Search Medicines</button>
+
+            <div id="medicineResults" style="display: none; margin-top: 1.5rem;">
+                <h3 style="color: var(--primary-color); margin-bottom: 1rem;">📋 Available Medicines</h3>
+                <div id="medicineResultsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Symptom Checker Modal -->
+    <div id="symptomModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeSymptomChecker()">&times;</span>
+            <h2>🤖 AI Symptom Checker</h2>
+            <p style="color: var(--text-light); margin-bottom: 1.5rem;">Describe your symptoms and get instant guidance. This is NOT a medical diagnosis.</p>
+            
+            <div id="symptomForm">
+                <div class="form-group">
+                    <label class="form-label">What are your main symptoms?</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom-fever" class="form-checkbox" value="fever">
+                            <label for="symptom-fever" class="checkbox-label">🌡️ Fever</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom-cough" class="form-checkbox" value="cough">
+                            <label for="symptom-cough" class="checkbox-label">😷 Cough</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom-headache" class="form-checkbox" value="headache">
+                            <label for="symptom-headache" class="checkbox-label">🤕 Headache</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom-fatigue" class="form-checkbox" value="fatigue">
+                            <label for="symptom-fatigue" class="checkbox-label">😴 Fatigue</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom-throat" class="form-checkbox" value="sore throat">
+                            <label for="symptom-throat" class="checkbox-label">🫁 Sore Throat</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom-body-pain" class="form-checkbox" value="body pain">
+                            <label for="symptom-body-pain" class="checkbox-label">💪 Body Pain</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">How long have you had these symptoms?</label>
+                    <select class="form-select" id="duration">
+                        <option value="">Select duration...</option>
+                        <option value="less-than-24">Less than 24 hours</option>
+                        <option value="1-3-days">1-3 days</option>
+                        <option value="3-7-days">3-7 days</option>
+                        <option value="more-than-week">More than a week</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Any other medical conditions?</label>
+                    <input type="text" class="form-input" id="medical-history" placeholder="e.g., diabetes, asthma, allergies (optional)">
+                </div>
+
+                <button class="btn-primary" onclick="analyzeSymptoms()" style="width: 100%; padding: 0.75rem;">Get Analysis</button>
+            </div>
+
+            <div id="symptomResult" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Doctor Consultation Modal -->
+    <div id="doctorModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeDoctorConsultation()">&times;</span>
+            <h2>👨‍⚕️ Book Doctor Consultation</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Your Name</label>
+                <input type="text" class="form-input" id="doctor-name" placeholder="Enter your name">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" class="form-input" id="doctor-phone" placeholder="Enter your phone number">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Issue Description</label>
+                <textarea class="form-input" id="doctor-issue" style="height: 100px; font-family: inherit;" placeholder="Describe your health issue..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Preferred Time</label>
+                <select class="form-select" id="doctor-time">
+                    <option value="">Select time...</option>
+                    <option value="morning">Morning (6 AM - 12 PM)</option>
+                    <option value="afternoon">Afternoon (12 PM - 6 PM)</option>
+                    <option value="evening">Evening (6 PM - 10 PM)</option>
+                </select>
+            </div>
+
+            <button class="btn-primary" onclick="bookConsultation()" style="width: 100%; padding: 0.75rem;">Book Consultation (₹300)</button>
+        </div>
+    </div>
+
+    <!-- Medicine Order Modal -->
+    <div id="medicineModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeMedicineOrder()">&times;</span>
+            <h2>💊 Order Medicines</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Your Name</label>
+                <input type="text" class="form-input" id="med-name" placeholder="Enter your name">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" class="form-input" id="med-phone" placeholder="Enter your phone number">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">📍 Your Current Location</label>
+                <button class="btn-secondary" onclick="getMedicineLocation()" style="width: 100%; margin-bottom: 0.5rem;">📍 Get My Live Location</button>
+                <input type="text" class="form-input" id="med-location" placeholder="Location will appear here..." readonly>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Delivery Address</label>
+                <textarea class="form-input" id="med-address" style="height: 80px; font-family: inherit;" placeholder="Enter complete delivery address..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">E-Prescription Upload (Optional)</label>
+                <input type="file" id="med-prescription-file" accept="image/*,.pdf" style="display: block; margin-bottom: 0.5rem;">
+                <p style="font-size: 0.85rem; color: var(--text-light);">Supported: JPG, PNG, PDF (Max 5MB)</p>
+                <p id="med-file-name" style="font-size: 0.9rem; color: var(--primary-color); margin-top: 0.5rem;"></p>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Medicine Names & Dosage</label>
+                <textarea class="form-input" id="med-prescription-text" style="height: 80px; font-family: inherit;" placeholder="List medicine names and dosage. e.g., Paracetamol 500mg, Cough Syrup 5ml..."></textarea>
+            </div>
+
+            <button class="btn-primary" onclick="orderMedicine()" style="width: 100%; padding: 0.75rem;">Place Order (Free Delivery in 10-15 mins)</button>
+        </div>
+    </div>
+
+    <!-- Hospital Finder Modal -->
+    <div id="hospitalModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeHospitalFinder()">&times;</span>
+            <h2>🏥 Find Hospitals Nearby</h2>
+            
+            <div class="form-group">
+                <label class="form-label">📍 Your Live Location</label>
+                <button class="btn-secondary" onclick="getHospitalLocation()" style="width: 100%; margin-bottom: 0.5rem;">📍 Use My Live Location</button>
+                <input type="text" class="form-input" id="hospital-location" placeholder="Location will appear here..." readonly>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Or Select City</label>
+                <select class="form-select" id="city">
+                    <option value="">Select city...</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Kolkata">Kolkata</option>
+                    <option value="Pune">Pune</option>
+                    <option value="Jaipur">Jaipur</option>
+                    <option value="Haryana">Haryana</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Specialty Needed</label>
+                <select class="form-select" id="specialty">
+                    <option value="">Select specialty...</option>
+                    <option value="General">General</option>
+                    <option value="Cardiology">Cardiology</option>
+                    <option value="Orthopedics">Orthopedics</option>
+                    <option value="Pediatrics">Pediatrics</option>
+                    <option value="Dermatology">Dermatology</option>
+                    <option value="Emergency">Emergency</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Radius (km)</label>
+                <input type="number" class="form-input" id="hospital-radius" placeholder="e.g., 5 (within 5km)" value="5" min="1">
+            </div>
+
+            <button class="btn-primary" onclick="findHospitals()" style="width: 100%; padding: 0.75rem;">Find Hospitals</button>
+            <div id="hospitalResults" style="margin-top: 1.5rem;"></div>
+        </div>
+    </div>
+
+    <!-- Ambulance Modal -->
+    <div id="ambulanceModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAmbulance()">&times;</span>
+            <h2>🚑 Emergency Ambulance</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Your Name</label>
+                <input type="text" class="form-input" id="amb-name" placeholder="Enter your name">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" class="form-input" id="amb-phone" placeholder="Enter your phone number">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">📍 Your Live Location</label>
+                <button class="btn-secondary" onclick="getAmbulanceLocation()" style="width: 100%; margin-bottom: 0.5rem;">📍 Get My Live Location</button>
+                <input type="text" class="form-input" id="amb-location" placeholder="Location will appear here..." readonly>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Complete Address</label>
+                <textarea class="form-input" id="amb-address" style="height: 80px; font-family: inherit;" placeholder="Enter complete address for ambulance pickup..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Medical Emergency Type</label>
+                <select class="form-select" id="amb-type">
+                    <option value="">Select emergency type...</option>
+                    <option value="Critical">Critical / Severe</option>
+                    <option value="Accident">Accident / Injury</option>
+                    <option value="Chest Pain">Chest Pain / Heart</option>
+                    <option value="Breathing">Breathing Difficulty</option>
+                    <option value="Other">Other Medical Emergency</option>
+                </select>
+            </div>
+
+            <button class="btn-primary" onclick="bookAmbulance()" style="width: 100%; padding: 0.75rem; background: var(--danger);">🚑 Call Ambulance Now (Emergency - 10-15 mins)</button>
+        </div>
+    </div>
+            <div class="service-card" onclick="openAmbulance()">
+                <div class="service-icon">🚑</div>
+                <h3>Ambulance Near Me</h3>
+                <p>Emergency ambulance at your location within minutes. 24/7 available. GPS tracked. Professional medical staff on board.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Symptom Checker Modal -->
+    <div id="symptomModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeSymptomChecker()">&times;</span>
+            <h2>🤖 AI Symptom Checker</h2>
+            <p style="color: var(--text-light); margin-bottom: 1.5rem;">Describe your symptoms and get instant guidance. This is NOT a medical diagnosis.</p>
+            
+            <div id="symptomForm">
+                <div class="form-group">
+                    <label class="form-label">What are your main symptoms?</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom-fever" class="form-checkbox" value="fever">
+                            <label for="symptom-fever" class="checkbox-label">🌡️ Fever</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom-cough" class="form-checkbox" value="cough">
+                            <label for="symptom-cough" class="checkbox-label">😷 Cough</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom-headache" class="form-checkbox" value="headache">
+                            <label for="symptom-headache" class="checkbox-label">🤕 Headache</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom-fatigue" class="form-checkbox" value="fatigue">
+                            <label for="symptom-fatigue" class="checkbox-label">😴 Fatigue</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom-throat" class="form-checkbox" value="sore throat">
+                            <label for="symptom-throat" class="checkbox-label">🫁 Sore Throat</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="symptom-body-pain" class="form-checkbox" value="body pain">
+                            <label for="symptom-body-pain" class="checkbox-label">💪 Body Pain</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">How long have you had these symptoms?</label>
+                    <select class="form-select" id="duration">
+                        <option value="">Select duration...</option>
+                        <option value="less-than-24">Less than 24 hours</option>
+                        <option value="1-3-days">1-3 days</option>
+                        <option value="3-7-days">3-7 days</option>
+                        <option value="more-than-week">More than a week</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Any other medical conditions?</label>
+                    <input type="text" class="form-input" id="medical-history" placeholder="e.g., diabetes, asthma, allergies (optional)">
+                </div>
+
+                <button class="btn-primary" onclick="analyzeSymptoms()" style="width: 100%; padding: 0.75rem;">Get Analysis</button>
+            </div>
+
+            <div id="symptomResult" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Doctor Consultation Modal -->
+    <div id="doctorModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeDoctorConsultation()">&times;</span>
+            <h2>👨‍⚕️ Book Doctor Consultation</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Your Name</label>
+                <input type="text" class="form-input" id="doctor-name" placeholder="Enter your name">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" class="form-input" id="doctor-phone" placeholder="Enter your phone number">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Issue Description</label>
+                <textarea class="form-input" id="doctor-issue" style="height: 100px; font-family: inherit;" placeholder="Describe your health issue..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Preferred Time</label>
+                <select class="form-select" id="doctor-time">
+                    <option value="">Select time...</option>
+                    <option value="morning">Morning (6 AM - 12 PM)</option>
+                    <option value="afternoon">Afternoon (12 PM - 6 PM)</option>
+                    <option value="evening">Evening (6 PM - 10 PM)</option>
+                </select>
+            </div>
+
+            <button class="btn-primary" onclick="bookConsultation()" style="width: 100%; padding: 0.75rem;">Book Consultation (₹300)</button>
+        </div>
+    </div>
+
+    <!-- Medicine Order Modal -->
+    <div id="medicineModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeMedicineOrder()">&times;</span>
+            <h2>💊 Order Medicines</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Your Name</label>
+                <input type="text" class="form-input" id="med-name" placeholder="Enter your name">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" class="form-input" id="med-phone" placeholder="Enter your phone number">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">📍 Current Location</label>
+                <button class="btn-secondary" onclick="getMedicineLocation()" style="width: 100%; margin-bottom: 0.5rem;">📍 Get My Location</button>
+                <input type="text" class="form-input" id="med-location" placeholder="Location will appear here..." readonly>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Delivery Address</label>
+                <textarea class="form-input" id="med-address" style="height: 80px; font-family: inherit;" placeholder="Enter complete delivery address..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">E-Prescription Upload</label>
+                <input type="file" id="med-prescription-file" accept="image/*,.pdf" style="display: block; margin-bottom: 0.5rem;">
+                <p style="font-size: 0.85rem; color: var(--text-light);">Supported: JPG, PNG, PDF (Max 5MB)</p>
+                <p id="med-file-name" style="font-size: 0.9rem; color: var(--primary-color); margin-top: 0.5rem;"></p>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Or Enter Medicine Names</label>
+                <textarea class="form-input" id="med-prescription-text" style="height: 80px; font-family: inherit;" placeholder="If no prescription, list medicine names and dosage..."></textarea>
+            </div>
+
+            <button class="btn-primary" onclick="orderMedicine()" style="width: 100%; padding: 0.75rem;">Place Order (Free Delivery in 10-15 mins)</button>
+        </div>
+    </div>
+
+    <!-- Hospital Finder Modal -->
+    <div id="hospitalModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeHospitalFinder()">&times;</span>
+            <h2>🏥 Find Hospitals Nearby</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Your City / Location</label>
+                <select class="form-select" id="city">
+                    <option value="">Select city...</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Kolkata">Kolkata</option>
+                    <option value="Pune">Pune</option>
+                    <option value="Jaipur">Jaipur</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Specialty Needed</label>
+                <select class="form-select" id="specialty">
+                    <option value="">Select specialty...</option>
+                    <option value="General">General</option>
+                    <option value="Cardiology">Cardiology</option>
+                    <option value="Orthopedics">Orthopedics</option>
+                    <option value="Pediatrics">Pediatrics</option>
+                    <option value="Dermatology">Dermatology</option>
+                    <option value="Emergency">Emergency</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Radius (km)</label>
+                <input type="number" class="form-input" id="hospital-radius" placeholder="e.g., 5 (within 5km)" value="5" min="1">
+            </div>
+
+            <button class="btn-primary" onclick="findHospitals()" style="width: 100%; padding: 0.75rem;">Find Hospitals</button>
+            <div id="hospitalResults" style="margin-top: 1.5rem;"></div>
+        </div>
+    </div>
+
+    <!-- Ambulance Modal -->
+    <div id="ambulanceModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAmbulance()">&times;</span>
+            <h2>🚑 Emergency Ambulance</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Your Name</label>
+                <input type="text" class="form-input" id="amb-name" placeholder="Enter your name">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" class="form-input" id="amb-phone" placeholder="Enter your phone number">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Your City / Location</label>
+                <select class="form-select" id="amb-city">
+                    <option value="">Select city...</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Kolkata">Kolkata</option>
+                    <option value="Pune">Pune</option>
+                    <option value="Jaipur">Jaipur</option>
+                    <option value="Lucknow">Lucknow</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Complete Address</label>
+                <textarea class="form-input" id="amb-address" style="height: 80px; font-family: inherit;" placeholder="Enter complete address for ambulance pickup..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Medical Emergency Type</label>
+                <select class="form-select" id="amb-type">
+                    <option value="">Select emergency type...</option>
+                    <option value="Critical">Critical / Severe</option>
+                    <option value="Accident">Accident / Injury</option>
+                    <option value="Chest Pain">Chest Pain / Heart</option>
+                    <option value="Breathing">Breathing Difficulty</option>
+                    <option value="Other">Other Medical Emergency</option>
+                </select>
+            </div>
+
+            <button class="btn-primary" onclick="bookAmbulance()" style="width: 100%; padding: 0.75rem; background: var(--danger);">🚑 Call Ambulance Now (Emergency)</button>
+        </div>
+    </div>
+
+    <!-- Benefits Section -->
+    <section class="benefits" id="benefits">
+        <h2>Why Choose HealthCare Connect?</h2>
+        <p class="section-subtitle">Everything you need for your health, simplified</p>
+        
+        <div class="benefits-grid">
+            <div class="benefit-box">
+                <div class="benefit-icon">⏱️</div>
+                <h4>24/7 Available</h4>
+                <p>Healthcare anytime, anywhere. Day or night, weekday or weekend. Doctors are always there for you.</p>
+            </div>
+            <div class="benefit-box">
+                <div class="benefit-icon">💰</div>
+                <h4>Affordable</h4>
+                <p>Doctor consultations from ₹300. Save up to 30% on medicines. No hidden charges.</p>
+            </div>
+            <div class="benefit-box">
+                <div class="benefit-icon">🔒</div>
+                <h4>100% Safe</h4>
+                <p>Licensed doctors only. Secure data encryption. Your health data is completely confidential.</p>
+            </div>
+            <div class="benefit-box">
+                <div class="benefit-icon">⚡</div>
+                <h4>Super Fast</h4>
+                <p>Consult in 5 minutes. Medicine delivery in 10-15 minutes. Ambulance in minutes. Quick response.</p>
+            </div>
+            <div class="benefit-box">
+                <div class="benefit-icon">📱</div>
+                <h4>One App</h4>
+                <p>No need for multiple apps. Everything in one place. Doctor, pharmacy, hospital, ambulance.</p>
+            </div>
+            <div class="benefit-box">
+                <div class="benefit-icon">📊</div>
+                <h4>Track Health</h4>
+                <p>Digital health records. Organize your medical reports. Easy to share with family members.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing">
+        <h2>Simple, Transparent Pricing</h2>
+        <p class="section-subtitle">No subscriptions, pay as you go. Or get premium for better value.</p>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="price-title">Doctor Consultation</div>
+                <div class="price-amount">₹300</div>
+                <p style="color: var(--text-light); margin-bottom: 1.5rem;">per visit</p>
+                <ul class="price-features">
+                    <li>Video or chat consultation</li>
+                    <li>5-10 minute session</li>
+                    <li>E-prescription included</li>
+                    <li>Follow-up within 24 hrs</li>
+                </ul>
+                <button class="btn-secondary" onclick="openDoctorConsultation()" style="width: 100%;">Book Now</button>
+            </div>
+
+            <div class="pricing-card featured">
+                <div style="background: var(--primary-color); color: white; padding: 0.5rem 1rem; border-radius: 20px; display: inline-block; margin-bottom: 1rem; font-size: 0.85rem; font-weight: 600;">MOST POPULAR</div>
+                <div class="price-title">Premium Plan</div>
+                <div class="price-amount">₹99</div>
+                <p style="color: var(--text-light); margin-bottom: 1.5rem;">per month</p>
+                <ul class="price-features">
+                    <li>Unlimited doctor consultations</li>
+                    <li>10% medicine discount</li>
+                    <li>Priority ambulance booking</li>
+                    <li>Digital health records included</li>
+                    <li>Family account (5 members)</li>
+                </ul>
+                <button class="btn-primary" onclick="subscribePremium()" style="width: 100%;">Subscribe Now</button>
+            </div>
+
+            <div class="pricing-card">
+                <div class="price-title">Medicine Ordering</div>
+                <div class="price-amount">₹0</div>
+                <p style="color: var(--text-light); margin-bottom: 1.5rem;">free delivery</p>
+                <ul class="price-features">
+                    <li>Order with e-prescription</li>
+                    <li>10-15 minute home delivery</li>
+                    <li>Authentic medicines guaranteed</li>
+                    <li>Delivery on your schedule</li>
+                    <li>Price comparison included</li>
+                </ul>
+                <button class="btn-secondary" onclick="openMedicineOrder()" style="width: 100%;">Order Medicines</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>Ready to Take Control of Your Health?</h2>
+        <p>Join 500,000+ Indians who trust HealthCare Connect for their healthcare needs.</p>
+        <button class="btn-primary" onclick="downloadApp()" style="padding: 1rem 2.5rem; font-size: 1.1rem; background: white; color: var(--primary-color);">Download App Free Now</button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>HealthCare Connect</h4>
+                <p>Your personal health companion. Available 24/7 for your healthcare needs.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul>
+                    <li><a onclick="openSymptomChecker()">AI Health Assistant</a></li>
+                    <li><a onclick="openDoctorConsultation()">Doctor Consultations</a></li>
+                    <li><a onclick="openMedicineOrder()">Medicine Delivery</a></li>
+                    <li><a onclick="openHospitalFinder()">Hospital Finder</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Disclaimer</a></li>
+                    <li><a href="#">Safety Guidelines</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 HealthCare Connect. All rights reserved. | Your Health, Your Privacy, Your Choice.</p>
+            <p style="margin-top: 1rem; opacity: 0.7;">Disclaimer: This is not a substitute for professional medical advice. Always consult a licensed doctor for medical diagnosis and treatment.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Symptom Checker Functions
+        function openSymptomChecker() {
+            document.getElementById('symptomModal').style.display = 'block';
+            document.getElementById('symptomForm').style.display = 'block';
+            document.getElementById('symptomResult').style.display = 'none';
+        }
+
+        function closeSymptomChecker() {
+            document.getElementById('symptomModal').style.display = 'none';
+        }
+
+        function analyzeSymptoms() {
+            const symptoms = [];
+            document.querySelectorAll('#symptomForm .form-checkbox:checked').forEach(checkbox => {
+                symptoms.push(checkbox.value);
+            });
+
+            const duration = document.getElementById('duration').value;
+            const medicalHistory = document.getElementById('medical-history').value;
+
+            if (symptoms.length === 0 || !duration) {
+                alert('Please select at least one symptom and duration');
+                return;
+            }
+
+            let analysis = analyzeSymptomsCombination(symptoms, duration, medicalHistory);
+            
+            document.getElementById('symptomForm').style.display = 'none';
+            document.getElementById('symptomResult').style.display = 'block';
+            document.getElementById('symptomResult').innerHTML = analysis;
+        }
+
+        function analyzeSymptomsCombination(symptoms, duration, history) {
+            const hasHighFever = symptoms.includes('fever');
+            const hasCough = symptoms.includes('cough');
+            const hasHeadache = symptoms.includes('headache');
+            const hasSoreThroat = symptoms.includes('sore throat');
+            const hasBodyPain = symptoms.includes('body pain');
+            const hasFatigue = symptoms.includes('fatigue');
+
+            let severity = 'low';
+            let recommendation = '';
+            let resultClass = 'result-success';
+
+            // Common Cold Analysis
+            if ((hasCough || hasSoreThroat) && !hasHighFever && duration !== 'more-than-week') {
+                severity = 'low';
+                resultClass = 'result-success';
+                recommendation = `
+                    <div class="result-title">✅ Likely: Common Cold</div>
+                    <div class="result-description">
+                        <p><strong>Analysis:</strong> Your symptoms suggest a common cold, which is usually viral and self-limiting.</p>
+                        <p><strong>Home Care Tips:</strong></p>
+                        <ul style="margin: 0.5rem 0 0 1.5rem;">
+                            <li>Rest well and stay hydrated</li>
+                            <li>Use saline nasal drops</li>
+                            <li>Gargle with salt water (sore throat)</li>
+                            <li>Avoid antibiotics unless prescribed</li>
+                            <li>Take vitamin C from fruits</li>
+                        </ul>
+                        <p style="margin-top: 1rem;"><strong>When to see a doctor:</strong> If symptoms persist beyond 7 days or worsen.</p>
+                    </div>
+                    <div class="result-action">
+                        <button class="btn-secondary" onclick="closeDoctorConsultation(); openDoctorConsultation();">💬 Chat with Doctor</button>
+                    </div>
+                `;
+            }
+            // Possible Flu Analysis
+            else if ((hasHighFever || hasBodyPain || hasFatigue) && hasCough) {
+                severity = 'medium';
+                resultClass = 'result-warning';
+                recommendation = `
+                    <div class="result-title">⚠️ Possible: Flu (Influenza)</div>
+                    <div class="result-description">
+                        <p><strong>Analysis:</strong> Your symptoms may indicate influenza or similar viral infection.</p>
+                        <p><strong>Recommended Actions:</strong></p>
+                        <ul style="margin: 0.5rem 0 0 1.5rem;">
+                            <li>Consult with a doctor - especially if fever is high (>39°C)</li>
+                            <li>Get rest and stay hydrated</li>
+                            <li>Avoid self-medication with antibiotics</li>
+                            <li>Doctor may recommend antiviral medication</li>
+                            <li>Isolation recommended if contagious</li>
+                        </ul>
+                        <p style="margin-top: 1rem;"><strong>Urgent care if:</strong> Severe breathing difficulty or chest pain.</p>
+                    </div>
+                    <div class="result-action">
+                        <button class="btn-primary" onclick="closeDoctorConsultation(); openDoctorConsultation();">🏥 Consult Doctor Now (₹300)</button>
+                    </div>
+                `;
+            }
+            // Headache/Stress Analysis
+            else if (hasHeadache && !hasCough && !hasHighFever) {
+                severity = 'low';
+                resultClass = 'result-success';
+                recommendation = `
+                    <div class="result-title">✅ Analysis: Likely Tension/Stress Headache</div>
+                    <div class="result-description">
+                        <p><strong>Analysis:</strong> Your headache appears to be tension-related or stress-induced.</p>
+                        <p><strong>Self-Care Steps:</strong></p>
+                        <ul style="margin: 0.5rem 0 0 1.5rem;">
+                            <li>Take pain reliever (paracetamol 500mg) as needed</li>
+                            <li>Apply warm compress to neck/shoulders</li>
+                            <li>Do light neck exercises</li>
+                            <li>Stay hydrated and reduce screen time</li>
+                            <li>Practice relaxation techniques</li>
+                        </ul>
+                        <p style="margin-top: 1rem;"><strong>Doctor consultation if:</strong> Headache persists or is severe.</p>
+                    </div>
+                    <div class="result-action">
+                        <button class="btn-secondary" onclick="closeDoctorConsultation(); openDoctorConsultation();">📞 Ask Doctor (₹300)</button>
+                    </div>
+                `;
+            }
+            // Multiple Symptoms - Recommend Doctor
+            else {
+                severity = 'medium';
+                resultClass = 'result-warning';
+                recommendation = `
+                    <div class="result-title">⚠️ Multiple Symptoms Detected</div>
+                    <div class="result-description">
+                        <p><strong>Analysis:</strong> You have multiple symptoms that require professional evaluation.</p>
+                        <p><strong>Recommended:</strong> Consult with a licensed doctor for proper diagnosis.</p>
+                        <p><strong>This AI checker cannot provide a medical diagnosis.</strong> Please speak with a healthcare professional.</p>
+                        <p style="margin-top: 1rem; font-weight: 600; color: var(--primary-color);">✓ Our doctors are available 24/7 for consultations at ₹300 per visit.</p>
+                    </div>
+                    <div class="result-action">
+                        <button class="btn-primary" onclick="closeDoctorConsultation(); openDoctorConsultation();">👨‍⚕️ Book Doctor Consultation</button>
+                    </div>
+                `;
+            }
+
+            return `<div class="result-box ${resultClass}">${recommendation}</div>`;
+        }
+
+        // Doctor Consultation Functions
+        function openDoctorConsultation() {
+            document.getElementById('doctorModal').style.display = 'block';
+        }
+
+        function closeDoctorConsultation() {
+            document.getElementById('doctorModal').style.display = 'none';
+        }
+
+        function bookConsultation() {
+            const name = document.getElementById('doctor-name').value;
+            const phone = document.getElementById('doctor-phone').value;
+            const issue = document.getElementById('doctor-issue').value;
+            const time = document.getElementById('doctor-time').value;
+
+            if (!name || !phone || !issue || !time) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            alert(`✅ Consultation Booked!\n\nName: ${name}\nPhone: ${phone}\nTime: ${time}\n\nA doctor will call you within 5 minutes.\n\nAmount: ₹300`);
+            closeDoctorConsultation();
+            
+            // Show booking confirmation popup
+            showBookingPopup('Doctor Consultation', name, phone, time, '₹300');
+        }
+
+        // Medicine Library Functions
+        function openMedicineLibrary() {
+            document.getElementById('medicineLibraryModal').style.display = 'block';
+            document.getElementById('medicineResults').style.display = 'none';
+            document.getElementById('medicine-search').value = '';
+        }
+
+        function closeMedicineLibrary() {
+            document.getElementById('medicineLibraryModal').style.display = 'none';
+        }
+
+        function searchMedicines() {
+            const searchTerm = document.getElementById('medicine-search').value;
+            const selectedSymptoms = [];
+            document.querySelectorAll('#medicineLibraryModal .form-checkbox:checked').forEach(checkbox => {
+                selectedSymptoms.push(checkbox.value);
+            });
+
+            if (!searchTerm && selectedSymptoms.length === 0) {
+                alert('Please enter medicine name or select symptoms');
+                return;
+            }
+
+            let medicineList = getMedicineRecommendations(searchTerm, selectedSymptoms);
+            
+            let html = '';
+            medicineList.forEach((medicine, index) => {
+                html += `
+                    <div style="background: #f8fafc; padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; border-left: 4px solid var(--primary-color);">
+                        <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-dark); margin-bottom: 0.5rem;">
+                            ${index + 1}. ${medicine.name}
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div>
+                                <span style="color: var(--text-light); font-size: 0.9rem;">💊 <strong>Type:</strong></span>
+                                <div style="color: var(--text-dark);">${medicine.type}</div>
+                            </div>
+                            <div>
+                                <span style="color: var(--text-light); font-size: 0.9rem;">⚡ <strong>Dosage:</strong></span>
+                                <div style="color: var(--text-dark);">${medicine.dosage}</div>
+                            </div>
+                            <div>
+                                <span style="color: var(--text-light); font-size: 0.9rem;">🎯 <strong>Uses:</strong></span>
+                                <div style="color: var(--text-dark);">${medicine.uses}</div>
+                            </div>
+                            <div>
+                                <span style="color: var(--text-light); font-size: 0.9rem;">💰 <strong>Avg Price:</strong></span>
+                                <div style="color: var(--success); font-weight: 600;">₹${medicine.price}</div>
+                            </div>
+                        </div>
+                        <div style="background: white; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                            <span style="color: var(--text-light); font-size: 0.9rem;">📋 <strong>Side Effects:</strong></span>
+                            <div style="color: var(--text-dark); font-size: 0.9rem; margin-top: 0.5rem;">${medicine.sideEffects}</div>
+                        </div>
+                        <button class="btn-secondary" onclick="addToCart('${medicine.name}')" style="width: 100%; padding: 0.6rem;">Order This Medicine</button>
+                    </div>
+                `;
+            });
+
+            document.getElementById('medicineResultsList').innerHTML = html;
+            document.getElementById('medicineResults').style.display = 'block';
+        }
+
+        function getMedicineRecommendations(searchTerm, symptoms) {
+            const allMedicines = {
+                'Paracetamol': {
+                    name: 'Paracetamol',
+                    type: 'Pain Reliever / Fever Reducer',
+                    dosage: '500mg - 1000mg every 4-6 hours',
+                    uses: 'Fever, Headache, Mild Pain',
+                    price: '15-30',
+                    sideEffects: 'Rare at normal doses. High doses may cause liver damage.'
+                },
+                'Ibuprofen': {
+                    name: 'Ibuprofen',
+                    type: 'Anti-inflammatory Pain Reliever',
+                    dosage: '400mg - 600mg every 6-8 hours',
+                    uses: 'Body Pain, Fever, Inflammation',
+                    price: '20-40',
+                    sideEffects: 'Stomach upset, may affect kidney function with prolonged use.'
+                },
+                'Aspirin': {
+                    name: 'Aspirin',
+                    type: 'Pain Reliever / Anti-inflammatory',
+                    dosage: '500mg every 4-6 hours',
+                    uses: 'Fever, Pain, Heart Health',
+                    price: '10-25',
+                    sideEffects: 'Stomach irritation, bleeding risk in high doses.'
+                },
+                'Cetirizine': {
+                    name: 'Cetirizine (Allergy Relief)',
+                    type: 'Antihistamine',
+                    dosage: '10mg once daily',
+                    uses: 'Allergies, Itching, Sneezing',
+                    price: '20-50',
+                    sideEffects: 'Drowsiness, dry mouth.'
+                },
+                'Omeprazole': {
+                    name: 'Omeprazole (Acid Reflux)',
+                    type: 'Proton Pump Inhibitor',
+                    dosage: '20mg once daily',
+                    uses: 'Acid Reflux, GERD, Stomach Protection',
+                    price: '15-40',
+                    sideEffects: 'Headache, diarrhea with prolonged use.'
+                },
+                'Loratadine': {
+                    name: 'Loratadine (Allergy Relief)',
+                    type: 'Antihistamine',
+                    dosage: '10mg once daily',
+                    uses: 'Allergies, Hay Fever, Sneezing',
+                    price: '25-60',
+                    sideEffects: 'Dry mouth, drowsiness (less common).'
+                },
+                'Amoxicillin': {
+                    name: 'Amoxicillin (Antibiotic)',
+                    type: 'Beta-lactam Antibiotic',
+                    dosage: '500mg every 8 hours',
+                    uses: 'Bacterial Infections, Throat Infection',
+                    price: '30-80',
+                    sideEffects: 'Allergic reactions possible, stomach upset. REQUIRES PRESCRIPTION.'
+                },
+                'Ranitidine': {
+                    name: 'Ranitidine (Heartburn Relief)',
+                    type: 'H2 Receptor Antagonist',
+                    dosage: '150mg twice daily',
+                    uses: 'Acid Reflux, Heartburn, Stomach Protection',
+                    price: '20-50',
+                    sideEffects: 'Headache, dizziness.'
+                },
+                'Metformin': {
+                    name: 'Metformin (Diabetes)',
+                    type: 'Antidiabetic',
+                    dosage: '500mg twice daily',
+                    uses: 'Type 2 Diabetes Management',
+                    price: '40-100',
+                    sideEffects: 'Nausea, diarrhea. REQUIRES PRESCRIPTION & DOCTOR CONSULTATION.'
+                },
+                'Lisinopril': {
+                    name: 'Lisinopril (Blood Pressure)',
+                    type: 'ACE Inhibitor',
+                    dosage: '10mg once daily',
+                    uses: 'High Blood Pressure, Heart Health',
+                    price: '30-90',
+                    sideEffects: 'Dry cough, dizziness. REQUIRES PRESCRIPTION & DOCTOR CONSULTATION.'
+                },
+                'Cough Syrup': {
+                    name: 'Cough Syrup (with Dextromethorphan)',
+                    type: 'Cough Suppressant',
+                    dosage: '5-10ml every 4-6 hours',
+                    uses: 'Dry Cough, Throat Relief',
+                    price: '40-100',
+                    sideEffects: 'Drowsiness possible.'
+                },
+                'Throat Lozenge': {
+                    name: 'Throat Lozenge (Menthol)',
+                    type: 'Throat Soother',
+                    dosage: '1-2 lozenges every 2-3 hours',
+                    uses: 'Sore Throat, Cough Relief',
+                    price: '20-50',
+                    sideEffects: 'Minimal, generally well-tolerated.'
+                },
+                'Vitamin C': {
+                    name: 'Vitamin C (500mg)',
+                    type: 'Immune Booster',
+                    dosage: '500mg once daily',
+                    uses: 'Cold Prevention, Immune Health',
+                    price: '30-80',
+                    sideEffects: 'Diarrhea at very high doses.'
+                },
+                'Zinc Supplement': {
+                    name: 'Zinc Supplement',
+                    type: 'Immune Support',
+                    dosage: '15-30mg once daily',
+                    uses: 'Immune Health, Cold Duration Reduction',
+                    price: '50-150',
+                    sideEffects: 'Nausea, metallic taste at high doses.'
+                }
+            };
+
+            let results = [];
+
+            // Search by medicine name
+            if (searchTerm) {
+                const searchLower = searchTerm.toLowerCase();
+                for (let [key, value] of Object.entries(allMedicines)) {
+                    if (key.toLowerCase().includes(searchLower) || value.uses.toLowerCase().includes(searchLower)) {
+                        results.push(value);
+                    }
+                }
+            }
+
+            // Search by symptoms
+            if (symptoms.length > 0) {
+                const symptomMedicines = {
+                    'fever': ['Paracetamol', 'Ibuprofen', 'Aspirin'],
+                    'cough': ['Cough Syrup', 'Throat Lozenge', 'Vitamin C'],
+                    'headache': ['Paracetamol', 'Ibuprofen', 'Aspirin'],
+                    'body pain': ['Ibuprofen', 'Paracetamol', 'Aspirin'],
+                    'sore throat': ['Throat Lozenge', 'Vitamin C', 'Cough Syrup'],
+                    'nausea': ['Ranitidine', 'Omeprazole']
+                };
+
+                symptoms.forEach(symptom => {
+                    if (symptomMedicines[symptom]) {
+                        symptomMedicines[symptom].forEach(medName => {
+                            if (!results.find(m => m.name === medName)) {
+                                results.push(allMedicines[medName]);
+                            }
+                        });
+                    }
+                });
+            }
+
+            return results.length > 0 ? results : [allMedicines['Paracetamol']];
+        }
+
+        function addToCart(medicineName) {
+            closeMedicineLibrary();
+            openMedicineOrder();
+            document.getElementById('med-prescription-text').value = medicineName;
+        }
+
+        // Medicine Order Functions
+        function openMedicineOrder() {
+            document.getElementById('medicineModal').style.display = 'block';
+        }
+
+        function closeMedicineOrder() {
+            document.getElementById('medicineModal').style.display = 'none';
+        }
+
+        function orderMedicine() {
+            const name = document.getElementById('med-name').value;
+            const phone = document.getElementById('med-phone').value;
+            const location = document.getElementById('med-location').value;
+            const address = document.getElementById('med-address').value;
+            const prescriptionFile = document.getElementById('med-prescription-file').files.length;
+            const prescriptionText = document.getElementById('med-prescription-text').value;
+
+            if (!name || !phone || !location || !address) {
+                alert('Please fill all fields including location');
+                return;
+            }
+
+            if (prescriptionFile === 0 && !prescriptionText) {
+                alert('Please upload e-prescription or enter medicine names');
+                return;
+            }
+
+            closeMedicineOrder();
+            showMedicinePopup(name, phone, location, address, prescriptionFile > 0, prescriptionText);
+        }
+
+        // Hospital Finder Functions
+        function openHospitalFinder() {
+            document.getElementById('hospitalModal').style.display = 'block';
+        }
+
+        function closeHospitalFinder() {
+            document.getElementById('hospitalModal').style.display = 'none';
+        }
+
+        function findHospitals() {
+            const city = document.getElementById('city').value;
+            const specialty = document.getElementById('specialty').value;
+
+            if (!city || !specialty) {
+                alert('Please select both city and specialty');
+                return;
+            }
+
+            const hospitalResults = {
+                'Delhi': {
+                    'General': ['Max Healthcare (Delhi)', 'Apollo Delhi', 'Fortis Hospital Delhi'],
+                    'Cardiology': ['Max Super Speciality (Cardiology)', 'Apollo Delhi - Cardiac', 'Manipal Hospital Delhi'],
+                    'Orthopedics': ['Max Hospital (Orthopedics)', 'Artemis Hospital', 'BLK Super Speciality'],
+                },
+                'Mumbai': {
+                    'General': ['Lilavati Hospital', 'Kokilaben Hospital', 'Global Hospital'],
+                    'Cardiology': ['Ruby Hall Clinic', 'Lilavati (Cardiology)', 'Hinduja Hospital'],
+                    'Orthopedics': ['Inamdar Hospital', 'KEM Hospital', 'Sir H.N. Reliance Foundation'],
+                },
+                'Bangalore': {
+                    'General': ['Apollo Bangalore', 'Manipal Hospital', 'Fortis Hospital'],
+                    'Cardiology': ['Narayana Health', 'St. John\'s Medical College', 'Fortis (Cardiology)'],
+                    'Orthopedics': ['Fortis (Orthopedics)', 'Apollo (Orthopedics)', 'Manipal (Orthopedics)'],
+                },
+            };
+
+            let hospitals = hospitalResults[city]?.[specialty] || ['Hospital 1', 'Hospital 2', 'Hospital 3'];
+            
+            let resultHTML = `<h3 style="color: var(--primary-color); margin-bottom: 1rem;">Hospitals in ${city} - ${specialty}</h3>`;
+            hospitals.forEach((hospital, index) => {
+                resultHTML += `
+                    <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin-bottom: 0.75rem; border-left: 4px solid var(--primary-color);">
+                        <div style="font-weight: 600; color: var(--text-dark); margin-bottom: 0.25rem;">${index + 1}. ${hospital}</div>
+                        <div style="font-size: 0.9rem; color: var(--text-light);">Ratings: ⭐⭐⭐⭐⭐ | Distance: ${3 + index} km</div>
+                        <button class="btn-secondary" style="margin-top: 0.5rem; padding: 0.5rem 1rem; font-size: 0.9rem;">View Details</button>
+                    </div>
+                `;
+            });
+
+            document.getElementById('hospitalResults').innerHTML = resultHTML;
+        }
+
+        // Navigation Functions
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function downloadApp() {
+            alert('📱 App Download Links:\n\n🟢 Android: https://play.google.com/store/apps/details?id=com.healthcare.connect\n\n🔵 iOS: https://apps.apple.com/app/healthcare-connect');
+        }
+
+        function subscribePremium() {
+            alert('✅ Premium Subscription\n\n₹99/month\n\nFeatures:\n✓ Unlimited doctor consultations\n✓ 10% medicine discount\n✓ Priority ambulance\n✓ Family account (5 members)\n\nRedirecting to payment...');
+        }
+
+        // Ambulance Functions
+        function openAmbulance() {
+            document.getElementById('ambulanceModal').style.display = 'block';
+        }
+
+        function closeAmbulance() {
+            document.getElementById('ambulanceModal').style.display = 'none';
+        }
+
+        function bookAmbulance() {
+            const name = document.getElementById('amb-name').value;
+            const phone = document.getElementById('amb-phone').value;
+            const location = document.getElementById('amb-location').value;
+            const address = document.getElementById('amb-address').value;
+            const emergencyType = document.getElementById('amb-type').value;
+
+            if (!name || !phone || !location || !address || !emergencyType) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            closeAmbulance();
+            
+            // Show ambulance booking confirmation popup
+            showAmbulancePopup(name, phone, location, emergencyType);
+        }
+
+        // Location Functions
+        function getMedicineLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    document.getElementById('med-location').value = `📍 ${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+                }, function() {
+                    alert('Unable to access your location. Please enable location services.');
+                });
+            } else {
+                alert('Geolocation is not supported by your browser.');
+            }
+        }
+
+        function getHospitalLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    document.getElementById('hospital-location').value = `📍 ${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+                }, function() {
+                    alert('Unable to access your location. Please enable location services.');
+                });
+            } else {
+                alert('Geolocation is not supported by your browser.');
+            }
+        }
+
+        function getAmbulanceLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    document.getElementById('amb-location').value = `📍 ${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+                }, function() {
+                    alert('Unable to access your location. Please enable location services.');
+                });
+            } else {
+                alert('Geolocation is not supported by your browser.');
+            }
+        }
+
+        // Popup Functions
+        function showBookingPopup(serviceType, name, phone, time, amount) {
+            const popupHTML = `
+                <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 3000; max-width: 400px; width: 90%; border-top: 4px solid var(--primary-color);">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">✅</div>
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">${serviceType} Booked!</h3>
+                        <div style="background: #f0f9ff; padding: 1rem; border-radius: 10px; margin-bottom: 1rem; text-align: left;">
+                            <p><strong>📋 Service:</strong> ${serviceType}</p>
+                            <p><strong>👤 Name:</strong> ${name}</p>
+                            <p><strong>📞 Phone:</strong> ${phone}</p>
+                            <p><strong>⏰ Time:</strong> ${time}</p>
+                            <p><strong>💰 Amount:</strong> ${amount}</p>
+                        </div>
+                        <p style="color: var(--text-light); margin-bottom: 1rem;">Your booking is confirmed. You will receive a call shortly.</p>
+                        <button class="btn-primary" onclick="this.parentElement.parentElement.remove();" style="width: 100%;">Done</button>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', popupHTML);
+        }
+
+        function showMedicinePopup(name, phone, location, address, hasPrescription, medicines) {
+            const prescriptionInfo = hasPrescription ? '✅ E-Prescription uploaded' : `✅ Medicines: ${medicines}`;
+            const popupHTML = `
+                <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 3000; max-width: 450px; width: 90%; border-top: 4px solid var(--primary-color);">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">✅</div>
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">🛒 Order Confirmed!</h3>
+                        <div style="background: #f0f9ff; padding: 1.2rem; border-radius: 10px; margin-bottom: 1rem; text-align: left; border-left: 4px solid var(--primary-color);">
+                            <p style="margin: 0.5rem 0;"><strong>👤 Name:</strong> ${name}</p>
+                            <p style="margin: 0.5rem 0;"><strong>📞 Phone:</strong> ${phone}</p>
+                            <p style="margin: 0.5rem 0;"><strong>📍 Location:</strong> ${location}</p>
+                            <p style="margin: 0.5rem 0;"><strong>🏠 Address:</strong> ${address}</p>
+                            <p style="margin: 0.5rem 0;"><strong>${prescriptionInfo}</strong></p>
+                        </div>
+                        <div style="background: rgba(16, 185, 129, 0.1); padding: 1rem; border-radius: 10px; margin-bottom: 1rem; border: 2px solid var(--success);">
+                            <p style="color: var(--success); font-weight: 700; margin: 0.5rem 0; font-size: 1.1rem;">⏱️ Delivery in 10-15 Minutes</p>
+                            <p style="color: var(--text-dark); margin: 0.5rem 0;">💰 FREE Home Delivery</p>
+                            <p style="color: var(--text-light); font-size: 0.9rem; margin: 0;">📍 GPS Tracking Enabled</p>
+                        </div>
+                        <button class="btn-primary" onclick="this.parentElement.parentElement.remove();" style="width: 100%;">Done ✓</button>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', popupHTML);
+        }
+
+        function showAmbulancePopup(name, phone, location, emergencyType) {
+            const popupHTML = `
+                <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 3000; max-width: 400px; width: 90%; border-top: 4px solid var(--danger);">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🚑</div>
+                        <h3 style="color: var(--danger); margin-bottom: 1rem;">AMBULANCE DISPATCHED!</h3>
+                        <div style="background: rgba(239, 68, 68, 0.1); padding: 1rem; border-radius: 10px; margin-bottom: 1rem; text-align: left;">
+                            <p><strong>👤 Name:</strong> ${name}</p>
+                            <p><strong>📞 Phone:</strong> ${phone}</p>
+                            <p><strong>📍 Location:</strong> ${location}</p>
+                            <p><strong>🚨 Emergency Type:</strong> ${emergencyType}</p>
+                            <p style="color: var(--danger); font-weight: 600; margin-top: 1rem;">⏱️ ETA: 3-5 minutes</p>
+                        </div>
+                        <p style="color: var(--text-light); margin-bottom: 1rem;">✓ GPS Tracking Enabled<br>✓ Medical Staff On Board<br>✓ Real-time Updates to Your Phone</p>
+                        <button class="btn-primary" onclick="this.parentElement.parentElement.remove();" style="width: 100%; background: var(--danger);">Close</button>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', popupHTML);
+        }
+
+        // File upload handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('med-prescription-file');
+            if (fileInput) {
+                fileInput.addEventListener('change', function() {
+                    if (this.files.length > 0) {
+                        document.getElementById('med-file-name').innerHTML = '✅ ' + this.files[0].name + ' uploaded';
+                    }
+                });
+            }
+        });
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const symptomModal = document.getElementById('symptomModal');
+            const doctorModal = document.getElementById('doctorModal');
+            const medicineModal = document.getElementById('medicineModal');
+            const medicineLibraryModal = document.getElementById('medicineLibraryModal');
+            const hospitalModal = document.getElementById('hospitalModal');
+            const ambulanceModal = document.getElementById('ambulanceModal');
+
+            if (event.target === symptomModal) symptomModal.style.display = 'none';
+            if (event.target === doctorModal) doctorModal.style.display = 'none';
+            if (event.target === medicineModal) medicineModal.style.display = 'none';
+            if (event.target === medicineLibraryModal) medicineLibraryModal.style.display = 'none';
+            if (event.target === hospitalModal) hospitalModal.style.display = 'none';
+            if (event.target === ambulanceModal) ambulanceModal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
